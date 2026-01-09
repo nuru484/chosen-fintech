@@ -90,12 +90,7 @@ const Blog = () => {
 
   return (
     <div>
-      <PageHero
-        badge="Blog"
-        title="Insights & Education"
-        description="Explore our articles on cryptocurrency, blockchain technology, DeFi, and financial literacy."
-        backgroundImage={"/page-hero-blog.jpg"}
-      />
+      <PageHero title="Blog" />
 
       {/* Search and Filters */}
       <section className="py-8 border-b border-border bg-background sticky top-0 z-20">

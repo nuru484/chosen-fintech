@@ -82,12 +82,7 @@ const faqCategories = [
 const FAQ = () => {
   return (
     <div>
-      <PageHero
-        badge="FAQ"
-        title="Frequently Asked Questions"
-        description="Find answers to common questions about Chosen Fintech, cryptocurrency education, and the Cardano ecosystem."
-        backgroundImage={"/page-hero-faq.jpg"}
-      />
+      <PageHero title="FAQ" />
 
       {/* FAQ Content */}
       <section className="section-padding">
@@ -132,7 +127,7 @@ const FAQ = () => {
               Still Have Questions?
             </h2>
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              Can't find the answer you're looking for? Our team is here to
+              Can&apos;t find the answer you&apos;re looking for? Our team is here to
               help.
             </p>
             <Button asChild>

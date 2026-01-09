@@ -1,50 +1,46 @@
 "use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { Home, MoveRight } from "lucide-react";
 
 interface PageHeroProps {
-  badge: string;
   title: string;
-  description: string;
-  backgroundImage: string;
 }
 
-export function PageHero({
-  badge,
-  title,
-  description,
-  backgroundImage,
-}: PageHeroProps) {
+export function PageHero({ title }: PageHeroProps) {
   return (
-    <section className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
-      {/* Background Image */}
+    <section className="relative  pb-18 pt-32 md:pb-24 md:pt-64 overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src={backgroundImage}
-          alt=""
+          src={"/hero-bg.jpg"}
+          alt="background image for heros"
           className="w-full h-full object-cover"
           fill
         />
         <div className="absolute inset-0 bg-primary/80" />
       </div>
 
-      {/* Content */}
       <div className="container-wide relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/20 text-primary-foreground text-sm font-medium mb-4 animate-fade-in">
-            {badge}
-          </span>
-          <h1
-            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 animate-fade-in"
-            style={{ animationDelay: "0.1s" }}
-          >
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 uppercase tracking-wide animate-fade-in">
             {title}
           </h1>
-          <p
-            className="text-lg text-primary-foreground/80 leading-relaxed animate-fade-in"
-            style={{ animationDelay: "0.2s" }}
+
+          <div
+            className="flex items-center justify-center gap-3 text-primary-foreground/80 animate-fade-in"
+            style={{ animationDelay: "0.1s" }}
           >
-            {description}
-          </p>
+            <Link
+              href="/"
+              className="hover:text-primary-foreground transition-colors"
+              aria-label="Home"
+            >
+              <Home className="w-5 h-5" />
+            </Link>
+            <MoveRight strokeWidth={0.5} />
+            <span className="text-sm font-medium">{title}</span>
+          </div>
         </div>
       </div>
     </section>

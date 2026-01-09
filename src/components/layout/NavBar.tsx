@@ -14,7 +14,6 @@ const navLinks = [
   { to: "/about", label: "About" },
   { to: "/cardano-hub", label: "Cardano Hub" },
   { to: "/blog", label: "Blog" },
-  { to: "/team", label: "Team" },
   { to: "/faq", label: "FAQ" },
 ];
 

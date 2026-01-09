@@ -32,12 +32,7 @@ const values = [
 const About = () => {
   return (
     <div>
-      <PageHero
-        badge="About Us"
-        title="Championing Crypto Education Since Day One"
-        description="Chosen Fintech was founded with a clear mission: to demystify cryptocurrency and blockchain technology for everyone, with a special focus on the Cardano ecosystem."
-        backgroundImage={"/page-hero-about.jpg"}
-      />
+      <PageHero title="About Us" />
 
       {/* Mission & Vision */}
       <section className="section-padding">

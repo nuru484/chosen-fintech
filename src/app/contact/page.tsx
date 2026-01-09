@@ -76,12 +76,7 @@ const Contact = () => {
 
   return (
     <div>
-      <PageHero
-        badge="Contact Us"
-        title="Let's Start a Conversation"
-        description="Have questions about our programs? Want to collaborate? We'd love to hear from you."
-        backgroundImage={"/page-hero-contact.jpg"}
-      />
+      <PageHero title="Contact Us" />
 
       {/* Contact Form & Info */}
       <section className="section-padding">

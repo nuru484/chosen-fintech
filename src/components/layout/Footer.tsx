@@ -5,7 +5,6 @@ import Image from "next/image";
 const footerLinks = {
   company: [
     { to: "/about", label: "About Us" },
-    { to: "/team", label: "Our Team" },
     { to: "/contact", label: "Contact" },
   ],
   resources: [

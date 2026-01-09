@@ -82,12 +82,7 @@ const updates = [
 const CardanoHub = () => {
   return (
     <div>
-      <PageHero
-        badge="Cardano Hub"
-        title="Your Gateway to the Cardano Ecosystem"
-        description="Comprehensive guides, ecosystem updates, and educational resources dedicated to helping you master Cardano blockchain technology."
-        backgroundImage={"/page-hero-cardano.jpg"}
-      />
+      <PageHero title="Cardano Hub" />
 
       {/* Educational Guides */}
       <section className="section-padding">

@@ -1,79 +1,170 @@
 "use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import Image from "next/image";
+import { motion, Variants } from "motion/react";
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const headlineVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+    scale: 0.95,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 80,
+      damping: 15,
+      duration: 0.8,
+    },
+  },
+};
+
+const subtextVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 20,
+      duration: 0.6,
+    },
+  },
+};
+
+const buttonVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+    scale: 0.9,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 120,
+      damping: 18,
+      duration: 0.5,
+    },
+  },
+};
+
+const hoverVariants: Variants = {
+  rest: { x: "-100%" },
+  hover: {
+    x: "0%",
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    },
+  },
+};
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Background Image */}
+    <section className="relative min-h-screen pt-28 flex items-center justify-center overflow-hidden text-center">
       <div className="absolute inset-0">
         <Image
-          src={"/hero-bg.jpg"}
+          src="/hero-bg.jpg"
           alt=""
-          className="w-full h-full object-cover"
-          width={200}
-          height={200}
+          fill
+          priority
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-primary/85" />
+        <div className="absolute inset-0 bg-linear-to-br from-primary/40 via-transparent to-primary/20" />
       </div>
 
-      {/* Content */}
-      <div className="container-wide relative z-10">
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/20 text-primary-foreground border border-primary-foreground/20 mb-6 animate-fade-in">
-            <span className="w-2 h-2 rounded-full bg-primary-foreground animate-pulse-soft" />
-            <span className="text-sm font-medium">
-              Cardano Ecosystem Advocates
-            </span>
-          </div>
+      <motion.div
+        className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-20 md:py-24 lg:py-32 flex flex-col items-center"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.h1
+          className="font-display text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-primary-foreground leading-[1.1] sm:leading-tight mb-6 sm:mb-8"
+          variants={headlineVariants}
+        >
+          EMPOWERING THE FUTURE OF DECENTRALISED FINANCE
+        </motion.h1>
 
-          <h1
-            className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-in"
-            style={{ animationDelay: "0.1s" }}
-          >
-            Empowering the Future of{" "}
-            <span className="underline decoration-primary-foreground/30 decoration-4 underline-offset-8">
-              Decentralized Finance
-            </span>
-          </h1>
+        <motion.p
+          className="text-base sm:text-lg md:text-xl font-light text-primary-foreground/90 leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-2xl"
+          variants={subtextVariants}
+        >
+          Chosen Fintech is your trusted partner in cryptocurrency education,
+          specializing in the Cardano ecosystem, blockchain technology, and
+          financial literacy for the digital age.
+        </motion.p>
 
-          <p
-            className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed mb-8 max-w-2xl animate-fade-in"
-            style={{ animationDelay: "0.2s" }}
-          >
-            Chosen Fintech is your trusted partner in cryptocurrency education,
-            specializing in the Cardano ecosystem, blockchain technology, and
-            financial literacy for the digital age.
-          </p>
-
-          <div
-            className="flex flex-col sm:flex-row gap-4 animate-fade-in"
-            style={{ animationDelay: "0.3s" }}
+        <motion.div
+          className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 w-full"
+          variants={buttonVariants}
+        >
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <Button
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              size="lg"
+              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 rounded-full shadow-lg h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-medium"
               asChild
             >
-              <Link href="/cardano-hub" className="group">
+              <Link
+                href="/cardano-hub"
+                className="flex items-center justify-center"
+              >
                 Learn Cardano
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
               </Link>
             </Button>
-            <Button asChild>
-              <Link href="/about">
-                <Play className="mr-2" size={18} />
-                Explore Our Work
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </div>
+          </motion.div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent" />
+          <motion.div initial="rest" whileHover="hover" className="relative">
+            <Button
+              size="lg"
+              variant="outline"
+              className="relative z-10 border-2 border-primary-foreground/30 text-primary-foreground rounded-full backdrop-blur-sm h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-medium overflow-hidden group transition-colors duration-300"
+              asChild
+            >
+              <Link href="/about" className="flex items-center justify-center">
+                <span className="relative z-20  text-primary group-hover:text-primary-foreground transition-colors duration-300">
+                  <Play className="mr-2 w-4 h-4 sm:w-5 sm:h-5 inline" />
+                  Explore Our Work
+                </span>
+
+                <motion.span
+                  className="absolute inset-0 bg-primary   rounded-full z-10"
+                  variants={hoverVariants}
+                />
+              </Link>
+            </Button>
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

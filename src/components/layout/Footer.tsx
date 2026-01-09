@@ -23,7 +23,7 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-primary-foreground">
+    <footer className="bg-foreground text-primary-foreground font-light">
       {/* Main Footer Content */}
       <div className="w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="py-12 lg:py-16">

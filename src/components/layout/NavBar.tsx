@@ -93,7 +93,7 @@ export function NavBar() {
               : "container max-w-7xl px-4 sm:px-6 lg:px-8"
           )}
         >
-          <div className="flex items-center justify-between h-20 md:h-32">
+          <div className="flex items-center justify-between h-18 md:h-28">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 group">
               <motion.div

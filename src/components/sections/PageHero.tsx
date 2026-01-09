@@ -10,7 +10,7 @@ interface PageHeroProps {
 
 export function PageHero({ title }: PageHeroProps) {
   return (
-    <section className="relative  pb-18 pt-32 md:pb-24 md:pt-64 overflow-hidden">
+    <section className="relative  pb-8 pt-32 md:pb-24 md:pt-64 overflow-hidden">
       <div className="absolute inset-0">
         <Image
           src={"/hero-bg.jpg"}

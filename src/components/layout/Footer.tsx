@@ -23,11 +23,9 @@ const footerLinks = {
 export function Footer() {
   return (
     <footer className="bg-foreground text-primary-foreground font-light">
-      {/* Main Footer Content */}
       <div className="w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="py-12 lg:py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
-            {/* Brand Section - Takes more space */}
             <div className="sm:col-span-2 lg:col-span-5">
               <Link
                 href="/"

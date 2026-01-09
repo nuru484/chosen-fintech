@@ -1,239 +1,139 @@
 "use client";
 
-import { useState } from "react";
 import { PageHero } from "@/components/sections/PageHero";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import {
-  Mail,
-  MapPin,
-  Phone,
-  Twitter,
-  Linkedin,
-  Youtube,
-  Send,
-  CheckCircle,
-} from "lucide-react";
-import toast from "react-hot-toast";
+import { Mail, MapPin, Phone } from "lucide-react";
+import { motion, Variants } from "motion/react";
 
 const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@chosenfintech.com",
-    href: "mailto:hello@chosenfintech.com",
+    value: "info@chosenfintech.org",
+    href: "mailto:info@chosenfintech.org",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
+    value: "+(233) 123-4567",
+    href: "tel:+233546488115",
   },
   {
     icon: MapPin,
-    label: "Location",
-    value: "Lagos, Nigeria",
+    label: "Address",
+    value: "Tmala, Ghana",
     href: null,
   },
 ];
 
-const socialLinks = [
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Youtube, href: "https://youtube.com", label: "YouTube" },
-];
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+    scale: 0.9,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
+const iconVariants: Variants = {
+  hover: {
+    scale: 1.1,
+    rotate: [0, -10, 10, -10, 0],
+    transition: {
+      duration: 0.5,
+    },
+  },
+  tap: {
+    scale: 0.95,
+  },
+};
 
 const Contact = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    toast.success("Message Sent!");
-
-    setFormData({ name: "", email: "", subject: "", message: "" });
-    setIsSubmitting(false);
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
   return (
     <div>
       <PageHero title="Contact Us" />
 
-      {/* Contact Form & Info */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
-            {/* Contact Form */}
-            <div className="lg:col-span-3">
-              <Card className="animate-fade-in">
-                <CardContent className="p-8">
-                  <h2 className="font-display text-2xl font-bold text-foreground mb-6">
-                    Send Us a Message
-                  </h2>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Your Name</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          placeholder="John Doe"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email Address</Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          placeholder="john@example.com"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="subject">Subject</Label>
-                      <Input
-                        id="subject"
-                        name="subject"
-                        placeholder="How can we help you?"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Message</Label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        placeholder="Tell us more about your inquiry..."
-                        rows={6}
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full md:w-auto"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <CheckCircle className="mr-2 h-4 w-4 animate-pulse" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="mr-2 h-4 w-4" />
-                          Send Message
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </div>
+      {/* Contact Info Section */}
+      <section className="py-16 lg:py-24">
+        <div className="w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            {contactInfo.map((item) => (
+              <motion.div
+                key={item.label}
+                className="flex flex-col items-center text-center"
+                variants={itemVariants}
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <motion.div
+                  className="group mb-6"
+                  whileHover="hover"
+                  whileTap="tap"
+                >
+                  <motion.div
+                    className="w-16 h-16 lg:w-20 cursor-pointer lg:h-20 rounded-xl bg-primary flex items-center justify-center transition-all duration-300 group-hover:bg-background group-hover:outline group-hover:outline-primary"
+                    variants={iconVariants}
+                  >
+                    <item.icon className="w-7 h-7 lg:w-8 lg:h-8 text-primary-foreground transition-colors duration-300 group-hover:text-primary" />
+                  </motion.div>
+                </motion.div>
 
-            {/* Contact Info */}
-            <div
-              className="lg:col-span-2 space-y-8 animate-fade-in"
-              style={{ animationDelay: "0.1s" }}
-            >
-              <div>
-                <h2 className="font-display text-2xl font-bold text-foreground mb-6">
-                  Get in Touch
-                </h2>
-                <div className="space-y-4">
-                  {contactInfo.map((item) => (
-                    <div key={item.label} className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                        <item.icon className="w-5 h-5 text-primary" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground">
-                          {item.label}
-                        </p>
-                        {item.href ? (
-                          <a
-                            href={item.href}
-                            className="font-medium text-foreground hover:text-primary transition-colors"
-                          >
-                            {item.value}
-                          </a>
-                        ) : (
-                          <p className="font-medium text-foreground">
-                            {item.value}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                <motion.h3
+                  className="font-display text-xl lg:text-2xl font-bold text-foreground mb-3"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {item.label}
+                </motion.h3>
 
-              <div>
-                <h3 className="font-display text-lg font-semibold text-foreground mb-4">
-                  Follow Us
-                </h3>
-                <div className="flex items-center gap-3">
-                  {socialLinks.map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
-                      aria-label={item.label}
-                    >
-                      <item.icon size={20} />
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              <Card className="mt-8">
-                <CardContent className="p-6">
-                  <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                    Office Hours
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Monday - Friday: 9:00 AM - 6:00 PM (WAT)
-                    <br />
-                    Saturday: 10:00 AM - 2:00 PM (WAT)
-                    <br />
-                    Sunday: Closed
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+                {item.href ? (
+                  <motion.a
+                    href={item.href}
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm lg:text-base"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {item.value}
+                  </motion.a>
+                ) : (
+                  <motion.p
+                    className="text-muted-foreground text-sm lg:text-base"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    {item.value}
+                  </motion.p>
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
     </div>

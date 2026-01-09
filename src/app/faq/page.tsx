@@ -1,3 +1,5 @@
+"use client";
+
 import { PageHero } from "@/components/sections/PageHero";
 import {
   Accordion,
@@ -7,6 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { motion, Variants } from "motion/react";
 
 const faqCategories = [
   {
@@ -79,61 +82,146 @@ const faqCategories = [
   },
 ];
 
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const categoryVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
+const ctaVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.9,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
 const FAQ = () => {
   return (
     <div>
       <PageHero title="FAQ" />
 
       {/* FAQ Content */}
-      <section className="section-padding">
-        <div className="container-narrow">
-          <div className="space-y-12">
+      <section className="py-16 lg:py-24">
+        <div className="w-full mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="space-y-12 lg:space-y-16"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
             {faqCategories.map((category, categoryIndex) => (
-              <div
-                key={category.category}
-                className="animate-fade-in"
-                style={{ animationDelay: `${categoryIndex * 0.1}s` }}
-              >
-                <h2 className="font-display text-2xl font-bold text-foreground mb-6">
+              <motion.div key={category.category} variants={categoryVariants}>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-6 lg:mb-8">
                   {category.category}
                 </h2>
-                <Accordion type="single" collapsible className="space-y-4">
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="space-y-3 lg:space-y-4"
+                >
                   {category.questions.map((item, index) => (
-                    <AccordionItem
+                    <motion.div
                       key={index}
-                      value={`${categoryIndex}-${index}`}
-                      className="bg-card rounded-xl border px-6 card-shadow"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        delay: index * 0.1,
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 15,
+                      }}
                     >
-                      <AccordionTrigger className="text-left font-medium hover:no-underline py-5">
-                        {item.q}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                        {item.a}
-                      </AccordionContent>
-                    </AccordionItem>
+                      <AccordionItem
+                        value={`${categoryIndex}-${index}`}
+                        className="bg-card rounded-xl border px-5 sm:px-6 lg:px-8 card-shadow hover:shadow-lg transition-shadow duration-300"
+                      >
+                        <AccordionTrigger className="text-left font-medium hover:no-underline py-4 sm:py-5 text-sm sm:text-base">
+                          {item.q}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground leading-relaxed pb-4 sm:pb-5 text-sm sm:text-base">
+                          {item.a}
+                        </AccordionContent>
+                      </AccordionItem>
+                    </motion.div>
                   ))}
                 </Accordion>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Still Have Questions */}
-      <section className="section-padding bg-muted/30">
-        <div className="container-narrow">
-          <div className="text-center">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <section className="py-16 lg:py-24 bg-muted/30">
+        <div className="w-full mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="text-center"
+            variants={ctaVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+          >
+            <motion.h2
+              className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 lg:mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
               Still Have Questions?
-            </h2>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              Can&apos;t find the answer you&apos;re looking for? Our team is here to
-              help.
-            </p>
-            <Button asChild>
-              <Link href="/contact">Contact Us</Link>
-            </Button>
-          </div>
+            </motion.h2>
+            <motion.p
+              className="text-muted-foreground text-base sm:text-lg mb-8 lg:mb-10 max-w-xl mx-auto px-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              Can&apos;t find the answer you&apos;re looking for? Our team is
+              here to help.
+            </motion.p>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <Button asChild size="lg">
+                <Link href="/contact">Contact Us</Link>
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </div>

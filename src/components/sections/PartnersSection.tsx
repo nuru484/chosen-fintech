@@ -1,54 +1,67 @@
 "use client";
-import { useRef } from "react";
+
+const GenericLogo = ({ name }: { name: string }) => (
+  <svg
+    viewBox="0 0 100 20"
+    className="w-full h-full max-w-37.5 opacity-90 transition-opacity duration-300 hover:opacity-100"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+  >
+    <style>{`
+      .logo-fill { fill: white; }
+    `}</style>
+    <rect className="logo-fill" x="0" y="5" width="5" height="10" rx="1" />
+    <rect className="logo-fill" x="8" y="5" width="5" height="10" rx="1" />
+    <polygon className="logo-fill" points="18,5 25,15 32,5" />
+    <text
+      className="logo-fill"
+      x="35"
+      y="14"
+      fontFamily="Arial, sans-serif"
+      fontSize="10"
+      fontWeight="bold"
+    >
+      {name.split(" ")[0]}
+    </text>
+  </svg>
+);
 
 const partners = [
-  "Cardano Foundation",
-  "EMURGO",
-  "Input Output Global",
-  "Catalyst",
-  "World Mobile",
-  "SingularityNET",
-  "Minswap",
-  "SundaeSwap",
-  "JPG Store",
-  "NMKR",
+  "Zencargo",
+  "Trustology",
+  "Ecknuovo",
+  "Shepper",
+  "OpenEdge",
+  "Global",
 ];
 
 export function PartnersSection() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const partnersBoxColor = "#2c2c36";
 
   return (
-    <section className="py-16 bg-muted/50 border-y border-border">
-      <div className="container-wide mb-8">
-        <p className="text-center text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Trusted by leading organizations in the Cardano ecosystem
-        </p>
-      </div>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-6 md:mb-16 lg:my-16">
+      <div
+        className="relative text-center space-y-8 shadow-2xl p-6 md:p-8 lg:p-14"
+        style={{
+          backgroundColor: partnersBoxColor,
+          boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+        }}
+      >
+        <h2 className="text-xs md:text-sm font-light text-white uppercase tracking-widest">
+          TRUSTED BY BIG ONES.
+        </h2>
 
-      <div className="relative overflow-hidden">
-        {/* Gradient Masks */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-muted/50 to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-muted/50 to-transparent z-10" />
-
-        {/* Scrolling Container */}
-        <div
-          ref={scrollRef}
-          className="flex items-center gap-16 animate-scroll"
-          style={{ width: "max-content" }}
-        >
-          {/* Double the items for seamless loop */}
-          {[...partners, ...partners].map((partner, index) => (
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-6 md:gap-8 lg:gap-10 items-center justify-items-center">
+          {partners.map((partner, index) => (
             <div
               key={`${partner}-${index}`}
-              className="flex items-center justify-center px-6 py-3 rounded-lg bg-card border border-border/50 hover:border-primary/30 transition-colors"
+              className="flex items-center justify-center w-full h-10 md:h-12 lg:h-16"
             >
-              <span className="font-display font-semibold text-muted-foreground whitespace-nowrap">
-                {partner}
-              </span>
+              <GenericLogo name={partner} />
             </div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import Image from "next/image";
-import heroBg from "@/assets/hero-bg.jpg";
 
 export function HeroSection() {
   return (
@@ -12,10 +11,11 @@ export function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src={heroBg}
+          src={"/hero-bg.jpg"}
           alt=""
           className="w-full h-full object-cover"
-          fill
+          width={200}
+          height={200}
         />
         <div className="absolute inset-0 bg-primary/85" />
       </div>

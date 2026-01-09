@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -17,7 +18,7 @@ const navLinks = [
   { to: "/contact", label: "Contact" },
 ];
 
-export function Header() {
+export function NavBar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -27,10 +28,13 @@ export function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center">
-              <span className="text-primary-foreground font-display font-bold text-lg">
-                CF
-              </span>
+            <div className="w-10 h-10  flex items-center justify-center">
+              <Image
+                src={"/logo.jpg"}
+                width={50}
+                height={50}
+                alt="chosen fintech logo"
+              />
             </div>
             <span className="font-display font-bold text-xl text-foreground group-hover:text-primary transition-colors">
               Chosen Fintech
@@ -47,7 +51,7 @@ export function Header() {
                   key={link.to}
                   href={link.to}
                   className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                    "px-4 py-2  text-sm font-medium transition-all duration-200",
                     isActive
                       ? "text-primary bg-primary/10"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -68,7 +72,7 @@ export function Header() {
 
           {/* Mobile Toggle */}
           <button
-            className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+            className="lg:hidden p-2  hover:bg-muted transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -89,7 +93,7 @@ export function Header() {
                   href={link.to}
                   onClick={() => setMobileMenuOpen(false)}
                   className={cn(
-                    "px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200",
+                    "px-4 py-3  text-sm font-medium transition-all duration-200",
                     isActive
                       ? "text-primary bg-primary/10"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"

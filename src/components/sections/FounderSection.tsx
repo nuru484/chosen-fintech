@@ -1,10 +1,9 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-
 import { ArrowRight } from "lucide-react";
-import founderImage from "@/assets/founder.jpg";
 
 export function FounderSection() {
   return (
@@ -15,7 +14,7 @@ export function FounderSection() {
           <div className="relative animate-slide-in-left">
             <div className="aspect-4/5 max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden card-shadow">
               <Image
-                src={founderImage}
+                src={"/founder.jpg"}
                 alt="Founder of Chosen Fintech"
                 className="w-full h-full object-cover"
                 fill

@@ -64,14 +64,17 @@ export function LatestStoriesSection() {
           {blogPosts.map((post, index) => (
             <Link key={post.id} href={`/blog/${post.id}`}>
               <Card style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="aspect-16/10 overflow-hidden">
+                <div className="relative aspect-16/10 overflow-hidden rounded-t-lg">
                   <Image
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     fill
+                    className="object-cover transition-transform duration-500 hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={index === 0}
                   />
                 </div>
+
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4 mb-3">
                     <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">

@@ -68,14 +68,14 @@ export function EducationalGuides({ guides }: EducationalGuidesProps) {
             className="text-center max-w-3xl mx-auto mb-6 md:mb-8"
           >
             <motion.div variants={fadeUp}>
-              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary md:mb-3 lg:mb-6">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary md:mb-3 ">
                 EDUCATIONAL GUIDES
               </h2>
               <motion.div
                 variants={lineReveal}
-                className="w-10 h-0.5 bg-primary mx-auto origin-left md:mb-6"
+                className="w-10 h-0.5 bg-primary mx-auto origin-left  mt-4"
               />
-              <p className="font-light text-base md:text-lg text-muted-foreground leading-relaxed">
+              <p className="font-light text-base md:text-lg text-muted-foreground leading-relaxed mt-3 ">
                 From beginner basics to advanced development, explore our
                 curated learning paths for the Cardano ecosystem.
               </p>

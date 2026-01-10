@@ -65,7 +65,7 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
           {/* Left Column */}
           <motion.div variants={fadeUp} className="max-w-xl">
             <div className="mb-6 relative">
-              <span className="inline-block text-primary text-sm font-medium uppercase tracking-widest relative z-10">
+              <span className="inline-block text-background text-sm font-medium uppercase tracking-widest relative z-10">
                 {subtitle}
               </span>
               <div className="absolute top-1/2 left-0 -translate-y-1/2 w-12 h-0.5 bg-primary/20 mr-2"></div>
@@ -73,7 +73,7 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
 
             <motion.h2
               variants={fadeUp}
-              className="font-display text-4xl sm:text-5xl font-extrabold text-white mb-6 leading-tight"
+              className="font-display text-4xl sm:text-5xl font-extrabold text-background mb-6 leading-tight"
             >
               {title}
             </motion.h2>

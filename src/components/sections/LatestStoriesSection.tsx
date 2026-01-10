@@ -68,6 +68,14 @@ const cardVariant: Variants = {
   },
 };
 
+const lineReveal: Variants = {
+  hidden: { scaleX: 0 },
+  visible: {
+    scaleX: 1,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 export function LatestStoriesSection() {
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-muted/30">
@@ -78,24 +86,30 @@ export function LatestStoriesSection() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            variants={fadeUp}
+            variants={container}
             className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16"
           >
-            <div className="max-w-2xl">
+            <motion.div variants={fadeUp} className="max-w-2xl">
               <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
                 LATEST STORIES
               </h2>
+              <motion.div
+                variants={lineReveal}
+                className="w-10 h-0.5 bg-primary mt-4 origin-left"
+              />
               <p className="text-muted-foreground mt-3 hidden md:block">
                 Stay updated with the latest trends, guides, and insights in the
                 crypto world.
               </p>
-            </div>
-            <Button variant="outline" asChild className="w-fit">
-              <Link href="/blog" className="group">
-                View All Articles
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <Button variant="outline" asChild className="w-fit">
+                <Link href="/blog" className="group">
+                  View All Articles
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+            </motion.div>
           </motion.div>
 
           {/* Blog Cards Grid */}
@@ -109,7 +123,7 @@ export function LatestStoriesSection() {
             {blogPosts.map((post, index) => (
               <motion.div key={post.id} variants={cardVariant}>
                 <Link href={`/blog/${post.id}`} className="group block h-full">
-                  <Card className="overflow-hidden border-border hover:shadow-xl hover:border-primary/20 transition-all duration-300 h-full flex flex-col">
+                  <Card className="overflow-hidden border-border hover:shadow-xl hover:border-primary/20 transition-all duration-300 h-full flex flex-col p-0">
                     {/* Image Container */}
                     <div className="relative aspect-16/10 overflow-hidden bg-muted">
                       <Image

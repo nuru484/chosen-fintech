@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, Twitter, Linkedin, Youtube, Mail } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
 import Image from "next/image";
 
 const footerLinks = {
@@ -122,8 +122,6 @@ export function Footer() {
               © {new Date().getFullYear()} Chosen Fintech. All rights reserved.
             </p>
             <div className="flex items-center gap-2 text-primary-foreground/50 text-xs lg:text-sm">
-              <Mail size={16} className="shrink-0" />
-
               <a
                 href="mailto:info@chosenfintech.org"
                 className="hover:text-primary-foreground transition-colors duration-200 hover:underline"

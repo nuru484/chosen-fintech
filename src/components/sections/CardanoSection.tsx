@@ -67,6 +67,14 @@ const cardVariant: Variants = {
   },
 };
 
+const lineReveal: Variants = {
+  hidden: { scaleX: 0 },
+  visible: {
+    scaleX: 1,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 export function CardanoSection() {
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-background">
@@ -77,17 +85,23 @@ export function CardanoSection() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            variants={fadeUp}
+            variants={container}
             className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
           >
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-6">
-              WHY CARDANO?
-            </h2>
-            <p className="font-light text-base md:text-lg text-muted-foreground leading-relaxed">
-              We chose to focus on Cardano because of its scientific approach to
-              blockchain development, commitment to sustainability, and vision
-              for financial inclusion worldwide.
-            </p>
+            <motion.div variants={fadeUp}>
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-6">
+                WHY CARDANO?
+              </h2>
+              <motion.div
+                variants={lineReveal}
+                className="w-10 h-0.5 bg-primary mx-auto mb-6 origin-left"
+              />
+              <p className="font-light text-base md:text-lg text-muted-foreground leading-relaxed">
+                We chose to focus on Cardano because of its scientific approach
+                to blockchain development, commitment to sustainability, and
+                vision for financial inclusion worldwide.
+              </p>
+            </motion.div>
           </motion.div>
 
           {/* Cards Grid */}
@@ -100,7 +114,7 @@ export function CardanoSection() {
           >
             {features.map((feature) => (
               <motion.div key={feature.title} variants={cardVariant}>
-                <Card className="overflow-hidden border-border hover:shadow-xl transition-shadow duration-300 h-full group">
+                <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full group p-0 border-black">
                   <CardContent className="p-0 relative h-full min-h-100">
                     {/* Background Image */}
                     <div className="absolute inset-0">

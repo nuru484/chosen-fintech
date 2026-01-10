@@ -107,7 +107,7 @@ export const OurTeam: React.FC<OurTeamProps> = ({
                       initial={{ x: -20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-2 p-2"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-1 p-2"
                     >
                       {(member.socials || defaultSocials).map(
                         (social, socialIndex) => {
@@ -119,7 +119,7 @@ export const OurTeam: React.FC<OurTeamProps> = ({
                               aria-label={social.label}
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.95 }}
-                              className="w-10 h-10 bg-primary text-primary-foreground flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors duration-300 shadow-md"
+                              className="w-10 h-10 bg-foreground text-primary-foreground flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors duration-300 shadow-md"
                             >
                               <IconComponent className="w-5 h-5" />
                             </motion.a>

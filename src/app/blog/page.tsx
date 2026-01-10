@@ -100,11 +100,23 @@ const Blog = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
             {/* Main Content */}
             <div className="lg:col-span-8">
+              {/* Mobile Search + Filter (rendered by BlogSidebar) */}
+              <div className="lg:hidden">
+                <BlogSidebar
+                  searchQuery={searchQuery}
+                  onSearchChange={setSearchQuery}
+                  categories={categories}
+                  activeCategory={activeCategory}
+                  onCategoryChange={setActiveCategory}
+                  recentPosts={recentPosts}
+                />
+              </div>
+
               <BlogList posts={filteredPosts} />
             </div>
 
-            {/* Sidebar */}
-            <div className="lg:col-span-4">
+            {/* Desktop Sidebar */}
+            <div className="hidden lg:block lg:col-span-4">
               <div className="lg:sticky lg:top-24 space-y-6">
                 <BlogSidebar
                   searchQuery={searchQuery}

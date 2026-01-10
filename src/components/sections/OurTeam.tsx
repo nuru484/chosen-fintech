@@ -1,10 +1,21 @@
-// components/sections/OurTeam.tsx
+"use client";
+
 import React from "react";
+import Image from "next/image";
+import { Facebook, Instagram, X } from "lucide-react";
+import { motion, Variants } from "motion/react";
+
+interface SocialLink {
+  icon: React.FC<{ className?: string }>;
+  href: string;
+  label: string;
+}
 
 export interface TeamMember {
   name: string;
   role: string;
   image: string;
+  socials?: SocialLink[];
 }
 
 interface OurTeamProps {
@@ -12,46 +23,134 @@ interface OurTeamProps {
   teamMembers: TeamMember[];
 }
 
+const defaultSocials: SocialLink[] = [
+  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: X, href: "#", label: "X / Twitter" },
+  { icon: Instagram, href: "#", label: "Instagram" },
+];
+
+const container: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const cardVariant: Variants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+  hover: {
+    y: -6,
+    transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 export const OurTeam: React.FC<OurTeamProps> = ({
   title = "OUR TEAM",
   teamMembers,
 }) => {
-  return (
-    <section className="section-padding bg-linear-to-b from-[#1e3a8a] to-[#1e40af]">
-      <div className="container-wide">
-        <div className="mb-12">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
-            {title}
-          </h2>
-          <div className="w-16 h-1 bg-primary mt-4"></div>
-        </div>
+  const containerClasses = "w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8";
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {teamMembers.map((member, index) => (
-            <div
-              key={member.name}
-              className="group animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
-                  />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="font-display text-xl font-bold text-[#1e3a8a] mb-2">
-                    {member.name}
-                  </h3>
-                  <p className="text-gray-600 text-sm">{member.role}</p>
-                </div>
-              </div>
+  return (
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={container}
+      className="py-16 bg-background"
+    >
+      <div className={containerClasses}>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
+          <motion.div
+            variants={fadeUp}
+            className="lg:col-span-1 lg:sticky lg:top-8 lg:self-start"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-1 h-16 bg-primary rounded-full" />
+              <h2 className="text-4xl font-bold text-primary">{title}</h2>
             </div>
-          ))}
+            <p className="mt-4 text-foreground">
+              Meet the talented individuals driving our mission forward.
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={container}
+            className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={index}
+                variants={cardVariant}
+                whileHover="hover"
+                className="group bg-card border border-border overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div className="relative">
+                  <div className="relative aspect-3/4 overflow-hidden bg-muted">
+                    <motion.div
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-2 p-2"
+                    >
+                      {(member.socials || defaultSocials).map(
+                        (social, socialIndex) => {
+                          const IconComponent = social.icon;
+                          return (
+                            <motion.a
+                              key={socialIndex}
+                              href={social.href}
+                              aria-label={social.label}
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.95 }}
+                              className="w-10 h-10 bg-primary text-primary-foreground flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors duration-300 shadow-md"
+                            >
+                              <IconComponent className="w-5 h-5" />
+                            </motion.a>
+                          );
+                        }
+                      )}
+                    </motion.div>
+
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  </div>
+
+                  <motion.div variants={fadeUp} className="p-4 bg-card">
+                    <h3 className="text-lg font-semibold text-card-foreground">
+                      {member.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {member.role}
+                    </p>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

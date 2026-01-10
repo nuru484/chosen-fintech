@@ -4,6 +4,7 @@ import { useState } from "react";
 import { PageHero } from "@/components/sections/PageHero";
 import { BlogList } from "@/components/blog/BlogList";
 import { BlogSidebar } from "@/components/blog/BlogSidebar";
+import { motion } from "motion/react";
 
 const categories = ["All", "Cardano", "DeFi", "Security", "Guides", "News"];
 
@@ -83,7 +84,6 @@ const Blog = () => {
     return matchesCategory && matchesSearch;
   });
 
-  // Get 3 most recent posts for sidebar
   const recentPosts = blogPosts.slice(0, 3).map((post) => ({
     id: post.id,
     title: post.title,
@@ -97,11 +97,21 @@ const Blog = () => {
 
       <section className="py-12 lg:py-16 xl:py-20 bg-muted/30">
         <div className="w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             {/* Main Content */}
             <div className="lg:col-span-8">
-              {/* Mobile Search + Filter (rendered by BlogSidebar) */}
-              <div className="lg:hidden">
+              {/* Mobile Search + Filter */}
+              <motion.div
+                className="lg:hidden"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+              >
                 <BlogSidebar
                   searchQuery={searchQuery}
                   onSearchChange={setSearchQuery}
@@ -110,13 +120,18 @@ const Blog = () => {
                   onCategoryChange={setActiveCategory}
                   recentPosts={recentPosts}
                 />
-              </div>
+              </motion.div>
 
               <BlogList posts={filteredPosts} />
             </div>
 
             {/* Desktop Sidebar */}
-            <div className="hidden lg:block lg:col-span-4">
+            <motion.div
+              className="hidden lg:block lg:col-span-4"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <div className="lg:sticky lg:top-24 space-y-6">
                 <BlogSidebar
                   searchQuery={searchQuery}
@@ -127,8 +142,8 @@ const Blog = () => {
                   recentPosts={recentPosts}
                 />
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </div>

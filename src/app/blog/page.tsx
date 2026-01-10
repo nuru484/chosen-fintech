@@ -1,10 +1,9 @@
+// app/blog/page.tsx
 "use client";
 import { useState } from "react";
 import { PageHero } from "@/components/sections/PageHero";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Calendar, ArrowRight, Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { BlogList } from "@/components/blog/BlogList";
+import { BlogSidebar } from "@/components/blog/BlogSidebar";
 
 const categories = ["All", "Cardano", "DeFi", "Security", "Guides", "News"];
 
@@ -18,7 +17,6 @@ const blogPosts = [
     date: "Jan 5, 2026",
     image:
       "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&auto=format&fit=crop&q=60",
-    featured: true,
   },
   {
     id: 2,
@@ -85,229 +83,40 @@ const Blog = () => {
     return matchesCategory && matchesSearch;
   });
 
-  const featuredPost = filteredPosts.find((post) => post.featured);
-  const regularPosts = filteredPosts.filter((post) => !post.featured);
+  // Get 3 most recent posts for sidebar
+  const recentPosts = blogPosts.slice(0, 3).map((post) => ({
+    id: post.id,
+    title: post.title,
+    date: post.date,
+    image: post.image,
+  }));
 
   return (
-    <div>
+    <div className="min-h-screen">
       <PageHero title="Blog" />
 
-      {/* Search and Filters */}
-      <section className="py-8 border-b border-border bg-background sticky top-0 z-20">
-        <div className="container-wide">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="relative w-full md:w-80">
-              <Search
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-                size={18}
-              />
-              <Input
-                type="search"
-                placeholder="Search articles..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-              />
+      <section className="py-12 lg:py-16 xl:py-20 bg-muted/30">
+        <div className="w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            {/* Main Content */}
+            <div className="lg:col-span-8">
+              <BlogList posts={filteredPosts} />
             </div>
-            <div className="flex flex-wrap gap-2 justify-center">
-              {categories.map((category) => (
-                <Button
-                  key={category}
-                  variant={
-                    activeCategory === category ? "default" : "secondary"
-                  }
-                  size="sm"
-                  onClick={() => setActiveCategory(category)}
-                >
-                  {category}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Blog Content - Magazine Style Layout */}
-      <section className="section-padding bg-muted/30">
-        <div className="container-wide">
-          {/* Featured Article */}
-          {featuredPost && (
-            <Card className="mb-12 animate-fade-in">
-              <div className="grid grid-cols-1 lg:grid-cols-2">
-                <div className="aspect-4/3 lg:aspect-auto overflow-hidden">
-                  <img
-                    src={featuredPost.image}
-                    alt={featuredPost.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-8 lg:p-12 flex flex-col justify-center">
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-medium">
-                      Featured
-                    </span>
-                    <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
-                      {featuredPost.category}
-                    </span>
-                  </div>
-                  <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
-                    {featuredPost.title}
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {featuredPost.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Calendar size={14} />
-                      {featuredPost.date}
-                    </span>
-                    <Button variant="link" className="p-0 h-auto group/btn">
-                      Read Article
-                      <ArrowRight className="ml-1 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
-                  </div>
-                </div>
+            {/* Sidebar */}
+            <div className="lg:col-span-4">
+              <div className="lg:sticky lg:top-24 space-y-6">
+                <BlogSidebar
+                  searchQuery={searchQuery}
+                  onSearchChange={setSearchQuery}
+                  categories={categories}
+                  activeCategory={activeCategory}
+                  onCategoryChange={setActiveCategory}
+                  recentPosts={recentPosts}
+                />
               </div>
-            </Card>
-          )}
-
-          {/* Masonry-style Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
-            {regularPosts.map((post, index) => {
-              // Create varied layouts
-              const isLandscape = index % 5 === 0 || index % 5 === 3;
-              const isLarge = index % 5 === 1;
-
-              if (isLandscape) {
-                // Landscape card - spans full width on mobile, half on tablet+
-                return (
-                  <Card
-                    key={post.id}
-                    className="lg:col-span-8 animate-fade-in"
-                    style={{ animationDelay: `${index * 0.05}s` }}
-                  >
-                    <div className="md:w-2/5 aspect-4/3 md:aspect-auto overflow-hidden">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <CardContent className="md:w-3/5 p-6 flex flex-col justify-center">
-                      <div className="flex items-center gap-4 mb-3">
-                        <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
-                          {post.category}
-                        </span>
-                        <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                          <Calendar size={12} />
-                          {post.date}
-                        </span>
-                      </div>
-                      <h3 className="font-display text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                        {post.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-                        {post.excerpt}
-                      </p>
-                      <Button
-                        variant="link"
-                        className="p-0 h-auto self-start group/btn"
-                      >
-                        Read More
-                        <ArrowRight className="ml-1 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                      </Button>
-                    </CardContent>
-                  </Card>
-                );
-              }
-
-              if (isLarge) {
-                // Large portrait card
-                return (
-                  <Card
-                    key={post.id}
-                    className="lg:col-span-4 lg:row-span-2 animate-fade-in"
-                    style={{ animationDelay: `${index * 0.05}s` }}
-                  >
-                    <div className="aspect-3/4 overflow-hidden">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-4 mb-3">
-                        <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
-                          {post.category}
-                        </span>
-                        <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                          <Calendar size={12} />
-                          {post.date}
-                        </span>
-                      </div>
-                      <h3 className="font-display text-xl font-semibold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-                        {post.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
-                        {post.excerpt}
-                      </p>
-                      <Button variant="link" className="p-0 h-auto group/btn">
-                        Read More
-                        <ArrowRight className="ml-1 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                      </Button>
-                    </CardContent>
-                  </Card>
-                );
-              }
-
-              // Regular portrait card
-              return (
-                <Card
-                  key={post.id}
-                  className="lg:col-span-4 animate-fade-in"
-                  style={{ animationDelay: `${index * 0.05}s` }}
-                >
-                  <div className="aspect-16/10 overflow-hidden">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4 mb-3">
-                      <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
-                        {post.category}
-                      </span>
-                      <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                        <Calendar size={12} />
-                        {post.date}
-                      </span>
-                    </div>
-                    <h3 className="font-display text-lg font-semibold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-                      {post.excerpt}
-                    </p>
-                    <Button variant="link" className="p-0 h-auto group/btn">
-                      Read More
-                      <ArrowRight className="ml-1 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-
-          {filteredPosts.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">
-                No articles found matching your criteria.
-              </p>
             </div>
-          )}
+          </div>
         </div>
       </section>
     </div>

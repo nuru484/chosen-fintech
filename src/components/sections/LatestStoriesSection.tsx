@@ -76,6 +76,17 @@ const lineReveal: Variants = {
   },
 };
 
+const hoverVariants: Variants = {
+  rest: { x: "-100%" },
+  hover: {
+    x: "0%",
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    },
+  },
+};
+
 export function LatestStoriesSection() {
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-muted/30">
@@ -97,16 +108,26 @@ export function LatestStoriesSection() {
                 variants={lineReveal}
                 className="w-10 h-0.5 bg-primary mt-4 origin-left"
               />
-              <p className="text-muted-foreground mt-3 hidden md:block">
+              <p className="text-muted-foreground mt-3 md:block">
                 Stay updated with the latest trends, guides, and insights in the
                 crypto world.
               </p>
             </motion.div>
-            <motion.div variants={fadeUp}>
-              <Button variant="outline" asChild className="w-fit">
-                <Link href="/blog" className="group">
-                  View All Articles
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <motion.div variants={fadeUp} initial="rest" whileHover="hover">
+              <Button
+                variant="outline"
+                className="relative z-10 w-fit border-2 border-primary/30 text-foreground  backdrop-blur-sm h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-medium overflow-hidden group transition-colors duration-300"
+                asChild
+              >
+                <Link href="/blog" className="flex items-center justify-center">
+                  <span className="relative z-20 group-hover:text-primary-foreground transition-colors duration-300">
+                    View All Articles
+                    <ArrowRight className="ml-2 w-4 h-4 inline transition-transform group-hover:translate-x-1" />
+                  </span>
+                  <motion.span
+                    className="absolute inset-0 bg-primary rounded-full z-10"
+                    variants={hoverVariants}
+                  />
                 </Link>
               </Button>
             </motion.div>

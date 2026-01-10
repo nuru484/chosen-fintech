@@ -61,10 +61,28 @@ const lineReveal: Variants = {
   },
 };
 
+const hoverVariants: Variants = {
+  rest: { x: "-100%" },
+  hover: {
+    x: "0%",
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    },
+  },
+};
+
 export function ProjectsSection() {
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden">
+      {/* Background with overlay - matching HeroSection */}
+      <div className="absolute inset-0">
+        <Image src="/hero-bg.jpg" alt="" fill className="object-cover" />
+        <div className="absolute inset-0 bg-primary/80" />
+        <div className="absolute inset-0 bg-linear-to-br from-primary/40 via-transparent to-primary/20" />
+      </div>
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header with Button */}
           <motion.div
@@ -75,23 +93,36 @@ export function ProjectsSection() {
             className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16"
           >
             <motion.div variants={fadeUp} className="max-w-2xl">
-              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground">
                 OUR PROJECTS
               </h2>
               <motion.div
                 variants={lineReveal}
-                className="w-10 h-0.5 bg-primary mt-4 origin-left"
+                className="w-10 h-0.5 bg-primary-foreground mt-4 origin-left"
               />
-              <p className="text-muted-foreground mt-3">
+              <p className="text-primary-foreground/90 mt-3">
                 Our projects are built in close partnership with organizations
                 to drive meaningful outcomes.
               </p>
             </motion.div>
-            <motion.div variants={fadeUp}>
-              <Button variant="outline" asChild className="w-fit">
-                <Link href="/projects" className="group">
-                  View All Our Projects
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <motion.div variants={fadeUp} initial="rest" whileHover="hover">
+              <Button
+                variant="outline"
+                className="relative z-10 w-fit border-2 border-primary-foreground/30 text-primary-foreground  backdrop-blur-sm h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-medium overflow-hidden group transition-colors duration-300"
+                asChild
+              >
+                <Link
+                  href="/projects"
+                  className="flex items-center justify-center"
+                >
+                  <span className="relative z-20 text-primary group-hover:text-primary-foreground transition-colors duration-300">
+                    View All Our Projects
+                    <ArrowRight className="ml-2 w-4 h-4 inline transition-transform group-hover:translate-x-1" />
+                  </span>
+                  <motion.span
+                    className="absolute inset-0 bg-primary rounded-full z-10"
+                    variants={hoverVariants}
+                  />
                 </Link>
               </Button>
             </motion.div>
@@ -108,7 +139,7 @@ export function ProjectsSection() {
             {projects.map((project, index) => (
               <motion.div key={project.title} variants={cardVariant}>
                 <Link href={project.link} className="group block h-full">
-                  <Card className="overflow-hidden rounded-sm  hover:shadow-xl hover:border-primary  transition-all duration-300 h-full flex flex-col">
+                  <Card className="overflow-hidden  hover:shadow-xl hover:border-primary transition-all duration-300 h-full flex flex-col">
                     <CardContent className="p-6 flex flex-col items-center text-center">
                       {/* Project Image/Logo Area */}
                       <div className="w-full aspect-square max-w-50 p-6 flex justify-center items-center bg-white rounded-xl mb-6 transition-transform duration-300 group-hover:scale-105">

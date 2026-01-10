@@ -51,8 +51,11 @@ export const WhoWeAre: React.FC<WhoWeAreProps> = ({
       <div className="w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="py-12 lg:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-            {/* Left Column */}
-            <motion.div variants={fadeUp} className="lg:col-span-3">
+            {/* Left Column - Sticky Header */}
+            <motion.div
+              variants={fadeUp}
+              className="lg:col-span-3 lg:sticky lg:top-8 lg:self-start"
+            >
               <h2 className="font-display text-3xl md:text-4xl font-bold text-primary leading-tight">
                 WHO
                 <br />

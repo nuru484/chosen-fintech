@@ -114,7 +114,7 @@ export function NavBar() {
                   Chosen Fintech
                 </span>
                 <span className="text-xs text-muted-foreground uppercase tracking-wide">
-                  BUSINESS
+                  SOLUTIONS
                 </span>
               </div>
             </Link>

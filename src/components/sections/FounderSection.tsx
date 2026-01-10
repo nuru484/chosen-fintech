@@ -42,6 +42,17 @@ const textVariants: Variants = {
   },
 };
 
+const hoverVariants: Variants = {
+  rest: { x: "-100%" },
+  hover: {
+    x: "0%",
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    },
+  },
+};
+
 export function FounderSection() {
   return (
     <section className="relative bg-muted/30 overflow-hidden">
@@ -85,16 +96,17 @@ export function FounderSection() {
                 variants={textVariants}
               >
                 <p>
-                  “When I started Chosen Fintech, my vision was simple: make
-                  blockchain technology and cryptocurrency accessible to
+                  &quot;When I started Chosen Fintech, my vision was simple:
+                  make blockchain technology and cryptocurrency accessible to
                   everyone. Too often, financial innovation leaves behind the
-                  very people who could benefit most from it.”
+                  very people who could benefit most from it.&quot;
                 </p>
 
                 <p>
-                  “We chose Cardano as our focus because it represents what we
-                  believe in — a technology built on rigorous research, designed
-                  for sustainability, and committed to real-world impact.”
+                  &quot;We chose Cardano as our focus because it represents what
+                  we believe in — a technology built on rigorous research,
+                  designed for sustainability, and committed to real-world
+                  impact.&quot;
                 </p>
 
                 <p className="font-medium text-foreground">
@@ -104,14 +116,27 @@ export function FounderSection() {
 
               <motion.div
                 variants={textVariants}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                initial="rest"
+                whileHover="hover"
               >
-                <Button variant="outline" size="lg" asChild>
-                  <Link href="/about" className="group">
-                    Read Our Full Story
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="relative z-10 border-2 border-primary/30 text-foreground rounded-full backdrop-blur-sm h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-medium overflow-hidden group transition-colors duration-300"
+                  asChild
+                >
+                  <Link
+                    href="/about"
+                    className="flex items-center justify-center"
+                  >
+                    <span className="relative z-20 group-hover:text-primary-foreground transition-colors duration-300">
+                      Read Our Full Story
+                      <ArrowRight className="ml-2 w-4 h-4 inline transition-transform group-hover:translate-x-1" />
+                    </span>
+                    <motion.span
+                      className="absolute inset-0 bg-primary rounded-full z-10"
+                      variants={hoverVariants}
+                    />
                   </Link>
                 </Button>
               </motion.div>

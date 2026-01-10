@@ -45,7 +45,7 @@ export function Footer() {
                     Chosen Fintech
                   </span>
                   <span className="text-xs text-primary-foreground/60 uppercase tracking-wide">
-                    BUSINESS
+                    SOLUTIONS
                   </span>
                 </div>
               </Link>

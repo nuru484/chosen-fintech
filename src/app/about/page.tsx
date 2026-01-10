@@ -84,8 +84,6 @@ const About = () => {
       />
 
       <WhatWeDo
-        subtitle="What We Do"
-        title="We bring standout immersive experiences to everyone, everywhere."
         description="At Chosen Fintech Solutions, our work is centered around building a digitally inclusive Africa through strategic focus areas that empower individuals and organizations."
         focusAreas={focusAreas}
       />

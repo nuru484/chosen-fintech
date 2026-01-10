@@ -12,8 +12,6 @@ export interface FocusArea {
 }
 
 interface WhatWeDoProps {
-  title: string;
-  subtitle: string;
   description: string;
   focusAreas: FocusArea[];
 }
@@ -46,9 +44,15 @@ const cardVariant: Variants = {
   },
 };
 
+const lineReveal: Variants = {
+  hidden: { scaleX: 0 },
+  visible: {
+    scaleX: 1,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 export const WhatWeDo: React.FC<WhatWeDoProps> = ({
-  title,
-  subtitle,
   description,
   focusAreas,
 }) => {
@@ -61,45 +65,32 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
       className="bg-foreground py-16 md:py-24"
     >
       <div className="w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left Column */}
-          <motion.div variants={fadeUp} className="max-w-xl">
-            <div className="mb-6 relative">
-              <span className="inline-block text-background text-sm font-medium uppercase tracking-widest relative z-10">
-                {subtitle}
-              </span>
-              <div className="absolute top-1/2 left-0 -translate-y-1/2 w-12 h-0.5 bg-primary/20 mr-2"></div>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          {/* Left Column - Sticky Header */}
+          <motion.div
+            variants={fadeUp}
+            className="lg:col-span-3 lg:sticky lg:top-8 lg:self-start"
+          >
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-background leading-tight">
+              WHAT
+              <br />
+              WE
+              <br />
+              DO
+            </h2>
 
-            <motion.h2
-              variants={fadeUp}
-              className="font-display text-4xl sm:text-5xl font-extrabold text-background mb-6 leading-tight"
-            >
-              {title}
-            </motion.h2>
+            <motion.div
+              variants={lineReveal}
+              className="w-10 h-0.5 bg-background mt-4 origin-left"
+            />
 
-            <motion.p
-              variants={fadeUp}
-              className="text-gray-400 text-lg leading-relaxed mb-8"
-            >
-              {description}
-            </motion.p>
-
-            <motion.button
-              variants={fadeUp}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="text-white font-medium bg-primary hover:bg-primary/90 transition-colors py-3 px-8 rounded-[5px] text-sm uppercase tracking-wider"
-            >
-              Learn More
-            </motion.button>
+            <p className="mt-4 text-gray-400 leading-relaxed">{description}</p>
           </motion.div>
 
-          {/* Cards */}
+          {/* Right Column - Cards */}
           <motion.div
             variants={container}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+            className="lg:col-span-9 grid grid-cols-1 sm:grid-cols-2 gap-6"
           >
             {focusAreas.map((area) => (
               <motion.div

@@ -61,6 +61,14 @@ const cardVariant: Variants = {
   },
 };
 
+const lineReveal: Variants = {
+  hidden: { scaleX: 0 },
+  visible: {
+    scaleX: 1,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 export const OurTeam: React.FC<OurTeamProps> = ({
   title = "OUR TEAM",
   teamMembers,
@@ -81,11 +89,21 @@ export const OurTeam: React.FC<OurTeamProps> = ({
             variants={fadeUp}
             className="lg:col-span-1 lg:sticky lg:top-8 lg:self-start"
           >
-            <div className="flex items-center gap-4">
-              <div className="w-1 h-16 bg-primary rounded-full" />
-              <h2 className="text-4xl font-bold text-primary">{title}</h2>
-            </div>
-            <p className="mt-4 text-foreground">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-primary leading-tight">
+              {title.split(" ").map((word, index) => (
+                <React.Fragment key={index}>
+                  {word}
+                  {index < title.split(" ").length - 1 && <br />}
+                </React.Fragment>
+              ))}
+            </h2>
+
+            <motion.div
+              variants={lineReveal}
+              className="w-10 h-0.5 bg-primary mt-4 origin-left"
+            />
+
+            <p className="mt-4 text-muted-foreground leading-relaxed">
               Meet the talented individuals driving our mission forward.
             </p>
           </motion.div>

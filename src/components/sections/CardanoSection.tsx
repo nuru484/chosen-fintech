@@ -1,72 +1,143 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
-import { Layers, Shield, Zap, Globe } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { motion, Variants } from "motion/react";
+import Image from "next/image";
 
 const features = [
   {
-    icon: Layers,
     title: "Third-Generation Blockchain",
     description:
       "Cardano is built on peer-reviewed research and evidence-based development, representing the evolution of blockchain technology.",
+    image:
+      "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80",
+    link: "#",
   },
   {
-    icon: Shield,
     title: "Proof of Stake Security",
     description:
       "Ouroboros, Cardano's proof-of-stake protocol, is mathematically proven secure while being energy-efficient.",
+    image:
+      "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&q=80",
+    link: "#",
   },
   {
-    icon: Zap,
     title: "Scalability & Sustainability",
     description:
       "Designed for the future with Hydra layer-2 solutions and a governance model that ensures long-term sustainability.",
+    image:
+      "https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=800&q=80",
+    link: "#",
   },
   {
-    icon: Globe,
     title: "Real-World Impact",
     description:
       "From identity solutions in Africa to supply chain tracking, Cardano focuses on solving real problems for real people.",
+    image:
+      "https://images.unsplash.com/photo-1622630998477-20aa696ecb05?w=800&q=80",
+    link: "#",
   },
 ];
 
+const container: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const cardVariant: Variants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 export function CardanoSection() {
   return (
-    <section className="section-padding">
-      <div className="container-wide">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Why Cardano?
-          </span>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Building on the Most{" "}
-            <span className="gradient-text">Advanced Blockchain</span>
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            We chose to focus on Cardano because of its scientific approach to
-            blockchain development, commitment to sustainability, and vision for
-            financial inclusion worldwide.
-          </p>
-        </div>
+    <section className="py-16 md:py-20 lg:py-24 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={fadeUp}
+            className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
+          >
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-6">
+              WHY CARDANO?
+            </h2>
+            <p className="font-light text-base md:text-lg text-muted-foreground leading-relaxed">
+              We chose to focus on Cardano because of its scientific approach to
+              blockchain development, commitment to sustainability, and vision
+              for financial inclusion worldwide.
+            </p>
+          </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {features.map((feature, index) => (
-            <Card
-              key={feature.title}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardContent className="p-8">
-                <div className="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center mb-6">
-                  <feature.icon className="w-7 h-7 text-primary-foreground" />
-                </div>
-                <h3 className="font-display text-xl font-semibold text-foreground mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {feature.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+          {/* Cards Grid */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={container}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
+          >
+            {features.map((feature) => (
+              <motion.div key={feature.title} variants={cardVariant}>
+                <Card className="overflow-hidden border-border hover:shadow-xl transition-shadow duration-300 h-full group">
+                  <CardContent className="p-0 relative h-full min-h-100">
+                    {/* Background Image */}
+                    <div className="absolute inset-0">
+                      <Image
+                        src={feature.image}
+                        alt={feature.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                      {/* Overlay - Using primary color with opacity */}
+                      <div className="absolute inset-0 bg-primary/80 transition-opacity duration-300 group-hover:bg-primary/75" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative z-10 h-full flex flex-col justify-end p-6 md:p-8">
+                      <div>
+                        <h3 className="font-display text-xl md:text-2xl font-semibold text-primary-foreground mb-3">
+                          {feature.title}
+                        </h3>
+                        <p className="text-primary-foreground/90 leading-relaxed mb-6">
+                          {feature.description}
+                        </p>
+                        <a
+                          href={feature.link}
+                          className="inline-flex items-center gap-2 text-primary-foreground font-medium hover:gap-3 transition-all duration-300 group/link"
+                        >
+                          Learn More
+                          <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
+                        </a>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>

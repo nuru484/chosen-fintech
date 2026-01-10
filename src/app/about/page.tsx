@@ -1,31 +1,74 @@
+"use client";
+// pages/About.tsx
 import { PageHero } from "@/components/sections/PageHero";
-import { Card, CardContent } from "@/components/ui/card";
-import { Target, Eye, Heart, Lightbulb } from "lucide-react";
+import { WhoWeAre } from "@/components/sections/WhoWeAre";
+import { WhatWeDo, FocusArea } from "@/components/sections/WhatWeDo";
+import { OurTeam, TeamMember } from "@/components/sections/OurTeam";
+import { GraduationCap, Rocket, Smartphone, Coins } from "lucide-react";
 
-const values = [
+const focusAreas: FocusArea[] = [
   {
-    icon: Target,
-    title: "Education First",
+    icon: GraduationCap,
+    title: "Blockchain & ICT Education",
     description:
-      "We believe knowledge is the foundation of empowerment. Every program we create prioritizes clear, accessible education.",
+      "We educate, develop, empower, and onboard Africans into the world of blockchain and cryptocurrency, while promoting digital literacy by equipping individuals with essential ICT skills to thrive in today's technology-driven world.",
   },
   {
-    icon: Eye,
-    title: "Transparency",
+    icon: Rocket,
+    title: "Entrepreneurship Development",
     description:
-      "In a space often clouded by hype, we commit to honest, evidence-based information and open communication.",
+      "We support startups and small businesses through incubation and acceleration programs, providing tools, mentorship, and resources to scale sustainable ventures and drive economic growth.",
   },
   {
-    icon: Heart,
-    title: "Inclusion",
+    icon: Smartphone,
+    title: "Mobile Money Transactions",
     description:
-      "Decentralized finance should benefit everyone. We work to bring blockchain education to underserved communities.",
+      "We deliver seamless mobile money payment solutions across platforms including MTN Ghana, Telecel, and other telecom networks—enhancing financial accessibility and convenience.",
   },
   {
-    icon: Lightbulb,
-    title: "Innovation",
+    icon: Coins,
+    title: "Digital Asset Trading & Management",
     description:
-      "We stay at the forefront of blockchain technology, continuously evolving our approach to meet the needs of learners.",
+      "We empower users to safely trade and manage digital tokens, ensuring secure and value-driven participation in the digital economy.",
+  },
+];
+
+const teamMembers: TeamMember[] = [
+  {
+    name: "Kwame Mensah",
+    role: "Founder & CEO",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+  },
+  {
+    name: "Ama Darko",
+    role: "Head of Education",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+  },
+  {
+    name: "Kofi Asante",
+    role: "Blockchain Lead",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+  },
+  {
+    name: "Akua Boateng",
+    role: "Operations Manager",
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+  },
+  {
+    name: "Yaw Owusu",
+    role: "Technical Director",
+    image:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+  },
+  {
+    name: "Efua Adjei",
+    role: "Community Manager",
+    image:
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop",
   },
 ];
 
@@ -34,88 +77,20 @@ const About = () => {
     <div>
       <PageHero title="About Us" />
 
-      {/* Mission & Vision */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            <div className="animate-fade-in">
-              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                Our Mission
-              </span>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
-                Making Blockchain Accessible to All
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                We are dedicated to educating individuals and organizations
-                about cryptocurrency, blockchain technology, and decentralized
-                finance. Our focus on the Cardano ecosystem reflects our belief
-                in technology that is sustainable, secure, and built for
-                real-world impact.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Through courses, workshops, and community initiatives, we break
-                down complex concepts into accessible knowledge that empowers
-                people to participate confidently in the digital economy.
-              </p>
-            </div>
+      <WhoWeAre
+        description="Chosen Fintech Solutions, formerly established and registered in 2020, and based in Tamale, Ghana, is committed to promoting financial technology (fintech) adoption and inclusion across Africa. Our core aim is to harness the power of fintech to strengthen political, economic, and social systems through digital empowerment in Africa."
+        vision="To be a leading catalyst for digital transformation in Africa by empowering individuals, businesses and governments, through inclusive access to blockchain, financial technology, and digital education."
+        mission="To make financial technology accessible by educating Africans, supporting entrepreneurs, and providing digital tools for payments, blockchain, and asset management."
+      />
 
-            <div className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                Our Vision
-              </span>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
-                A World of Financial Inclusion
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                We envision a future where everyone has the knowledge and tools
-                to participate in the global financial system. Blockchain
-                technology, particularly Cardano, offers unprecedented
-                opportunities for financial inclusion.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Our goal is to be the leading education partner for individuals
-                and organizations looking to understand and leverage blockchain
-                technology for positive change.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <WhatWeDo
+        subtitle="What We Do"
+        title="We bring standout immersive experiences to everyone, everywhere."
+        description="At Chosen Fintech Solutions, our work is centered around building a digitally inclusive Africa through strategic focus areas that empower individuals and organizations."
+        focusAreas={focusAreas}
+      />
 
-      {/* Values */}
-      <section className="section-padding bg-muted/30">
-        <div className="container-wide">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-              Our Values
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-              What Guides Our Work
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {values.map((value, index) => (
-              <Card
-                key={value.title}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center mb-6">
-                    <value.icon className="w-7 h-7 text-primary-foreground" />
-                  </div>
-                  <h3 className="font-display text-xl font-semibold text-foreground mb-3">
-                    {value.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {value.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      <OurTeam teamMembers={teamMembers} />
     </div>
   );
 };

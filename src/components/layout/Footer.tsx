@@ -63,7 +63,7 @@ export function Footer() {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center  transition-all duration-300 hover:scale-110"
+                    className="flex items-center justify-center transition-all duration-300 hover:scale-110"
                     aria-label={item.label}
                   >
                     <item.icon size={26} strokeWidth={0.5} />
